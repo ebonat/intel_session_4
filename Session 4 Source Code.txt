@@ -1,0 +1,58 @@
+Session 4 Source Code:
+
+def train_validation_test_split(X, y, test_size, valid_size=0.5):
+    try:
+        X_train, X_test_valid, y_train, y_test_valid = train_test_split(X, y, test_size=test_size, random_state=1)        
+        X_valid, X_test, y_valid, y_test = train_test_split(X_test_valid, y_test_valid, test_size=valid_size, random_state=1)        
+    except:
+        exception_message = sys.exc_info()[0]
+        print("An error occurred. {}".format(exception_message))
+    return X_train, y_train, X_valid, y_valid, X_test, y_test
+
+def CorrelationMatrixPlot(df_data):
+    try:
+        corr = df_data.corr()  
+        fig, ax = plt.subplots(figsize=(10, 10))   
+        colormap = sns.diverging_palette(220, 10, as_cmap=True)   
+        sns.heatmap(corr, cmap=colormap, annot=True, fmt=".2f")   
+        plt.xticks(range(len(corr.columns)), corr.columns);  
+        plt.yticks(range(len(corr.columns)), corr.columns)   
+        plt.title("Correlation Matrix Plot")
+        plt.show()
+    except:
+        exception_message = sys.exc_info()[0]
+        print("An error occurred. {}".format(exception_message))
+
+import os
+import sys
+import time
+
+import numpy as np
+import pandas as pd
+import cv2
+
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.neural_network import MLPClassifier
+from sklearn.metrics import confusion_matrix, accuracy_score, classification_report, roc_auc_score
+from sklearn.externals import joblib 
+import pickle
+from PIL import Image
+
+accuracy_score_value = accuracy_score(y_valid, y_predict_valid) * 100
+accuracy_score_value = float("{0:0.2f}".format(accuracy_score_value))    
+print("6. Validation Accuracy Score: {} %".format(accuracy_score_value))
+print()
+    
+confusion_matrix_result = confusion_matrix(y_valid, y_predict_valid)
+print("7. Validation Confusion Matrix:")
+print(confusion_matrix_result)
+print()
+  
+classification_report_result = classification_report(y_valid,y_predict_valid)
+print("8. Validation Classification Report:")    
+print(classification_report_result)
+print()  
+
+X = df_heat_cycle.drop(labels=["t_12"], axis=1).astype("float64")
+X = np.array(X)      
