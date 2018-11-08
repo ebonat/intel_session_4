@@ -55,4 +55,17 @@ print(classification_report_result)
 print()  
 
 X = df_heat_cycle.drop(labels=["t_12"], axis=1).astype("float64")
-X = np.array(X)      
+X = np.array(X)    
+
+print("PICKLE: Dumping the classification model pkl...:") 
+print()    
+mlp_classifier_model_pkl = open("fiducial_image_flat_tilt_classification.pkl", "wb")
+pickle.dump(mlp_classifier_model, mlp_classifier_model_pkl)
+mlp_classifier_model_pkl.close()   
+#     -----------------------------------------------------------------------------------------------------------------------
+     
+    print("PICKLE: Loading the classification model pkl...:") 
+    print()    
+    mlp_classifier_model_pkl = open("fiducial_image_flat_tilt_classification.pkl", "rb")      
+    mlp_classifier_model_file = pickle.load(mlp_classifier_model_pkl)
+    mlp_classifier_model_pkl.close() 
